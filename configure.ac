@@ -356,6 +356,13 @@ AC_ARG_WITH([win32-curl], [AC_HELP_STRING([--with-win32-curl=PATH],
 AC_SUBST(CURL_CFLAGS)
 AC_SUBST(CURL_LIBS)
 
+build_ejson=yes
+AC_ARG_WITH([ejson], [AC_HELP_STRING([--with-ejson=PATH],
+    [optionally disable ejson complication])], [
+    build_ejson=no
+], [])
+
+
 if test "x$CC" != "xagcc"; then
 case "$(uname -s)" in
   Linux)
@@ -397,8 +404,7 @@ fi
 
 otp_release="`${ERL} -noshell -eval 'io:put_chars(erlang:system_info(otp_release)).' -s erlang halt`"
 AC_SUBST(otp_release)
-#AM_CONDITIONAL([USE_OTP_NIFS], [test x$otp_release \> xR13B03])
-AM_CONDITIONAL([USE_OTP_NIFS], [false])
+AM_CONDITIONAL([USE_OTP_NIFS], [test x$otp_release \> xR13B03])
 
 has_crypto=`${ERL} -eval "case application:load(crypto) of ok -> ok; _ -> exit(no_crypto) end." -noshell -s init stop`
 
@@ -498,6 +504,7 @@ AM_CONDITIONAL([LAUNCHD], [test x${launchd_enabled} = xtrue])
 AM_CONDITIONAL([HELP2MAN], [test x${help2man_enabled} = xtrue])
 AM_CONDITIONAL([USE_NATIVE_MOCHIJSON], [test x${native_mochijson_enabled} = xyes])
 AM_CONDITIONAL([USE_CURL], [test x${use_curl} = xyes])
+AM_CONDITIONAL([BUILD_EJSON], [test x${build_ejson} = xyes])
 
 AC_SUBST([package_author_name], ["LOCAL_PACKAGE_AUTHOR_NAME"])
 AC_SUBST([package_author_address], ["LOCAL_PACKAGE_AUTHOR_ADDRESS"])

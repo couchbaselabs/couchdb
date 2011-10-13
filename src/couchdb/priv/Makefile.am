@@ -39,13 +39,15 @@ ICU_LOCAL_LIBS=-licuuc -licudata -licui18n
 endif
 
 #couchprivlib_LTLIBRARIES = couch_icu_driver.la
-couchprivlib_LTLIBRARIES = 
+couchprivlib_LTLIBRARIES =
 if USE_OTP_NIFS
+if BUILD_EJSON
 couchprivlib_LTLIBRARIES += couch_ejson_compare.la
 couch_ejson_compare_la_SOURCES = couch_ejson_compare/couch_ejson_compare.c
 couch_ejson_compare_la_CFLAGS = -D_BSD_SOURCE $(ICU_LOCAL_FLAGS)
 couch_ejson_compare_la_LDFLAGS = -module -avoid-version $(ICU_LOCAL_FLAGS)
 couch_ejson_compare_la_LIBADD = $(ICU_LOCAL_LIBS)
+endif
 endif
 couch_icu_driver_la_SOURCES = icu_driver/couch_icu_driver.c
 couch_icu_driver_la_LDFLAGS = -module -avoid-version

@@ -20,25 +20,28 @@
 
 -on_load(init/0).
 
-
 init() ->
-    SoName = case code:priv_dir(?MODULE) of
-    {error, bad_name} ->
-        case filelib:is_dir(filename:join(["..", "priv"])) of
-        true ->
-            filename:join(["..", "priv", "snappy_nif"]);
-        false ->
-            filename:join(["priv", "snappy_nif"])
-        end;
-    Dir ->
-        filename:join(Dir, "snappy_nif")
+    SoName = case init:get_argument(native_lib_path) of
+    {ok, [[LibPath]]} ->
+        filename:join([LibPath, "libsnappy_nif"]);
+    error ->
+        case code:priv_dir(?MODULE) of
+        {error, bad_name} ->
+            case filelib:is_dir(filename:join(["..", "priv"])) of
+            true ->
+                filename:join(["..", "priv", "snappy_nif"]);
+            false ->
+                filename:join(["priv", "snappy_nif"])
+            end;
+        Dir ->
+            filename:join(Dir, "snappy_nif")
+        end
     end,
     (catch erlang:load_nif(SoName, 0)),
     case erlang:system_info(otp_release) of
     "R13B03" -> true;
     _ -> ok
     end.
-
 
 compress(_IoList) ->
     exit(snappy_nif_not_loaded).

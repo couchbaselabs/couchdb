@@ -10,4 +10,8 @@
 ## License for the specific language governing permissions and limitations under
 ## the License.
 
+if BUILD_EJSON
 SUBDIRS = couchdb ejson erlang-oauth etap ibrowse mochiweb snappy
+else
+SUBDIRS = couchdb erlang-oauth etap ibrowse mochiweb snappy
+endif
