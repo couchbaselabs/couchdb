@@ -362,6 +362,11 @@ AC_ARG_WITH([ejson], [AC_HELP_STRING([--with-ejson=PATH],
     build_ejson=no
 ], [])
 
+build_ejson_compare=yes
+AC_ARG_WITH([ejson-compare], [AC_HELP_STRING([--with-ejson-compare=PATH],
+    [optionally disable ejson-compare complication])], [
+    build_ejson_compare=no
+], [])
 
 if test "x$CC" != "xagcc"; then
 case "$(uname -s)" in
@@ -505,6 +510,7 @@ AM_CONDITIONAL([HELP2MAN], [test x${help2man_enabled} = xtrue])
 AM_CONDITIONAL([USE_NATIVE_MOCHIJSON], [test x${native_mochijson_enabled} = xyes])
 AM_CONDITIONAL([USE_CURL], [test x${use_curl} = xyes])
 AM_CONDITIONAL([BUILD_EJSON], [test x${build_ejson} = xyes])
+AM_CONDITIONAL([BUILD_EJSON_COMPARE], [test x${build_ejson_compare} = xyes])
 
 AC_SUBST([package_author_name], ["LOCAL_PACKAGE_AUTHOR_NAME"])
 AC_SUBST([package_author_address], ["LOCAL_PACKAGE_AUTHOR_ADDRESS"])

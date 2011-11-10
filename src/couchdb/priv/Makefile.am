@@ -41,7 +41,7 @@ endif
 #couchprivlib_LTLIBRARIES = couch_icu_driver.la
 couchprivlib_LTLIBRARIES =
 if USE_OTP_NIFS
-if BUILD_EJSON
+if BUILD_EJSON_COMPARE
 couchprivlib_LTLIBRARIES += couch_ejson_compare.la
 couch_ejson_compare_la_SOURCES = couch_ejson_compare/couch_ejson_compare.c
 couch_ejson_compare_la_CFLAGS = -D_BSD_SOURCE $(ICU_LOCAL_FLAGS)
