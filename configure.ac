@@ -322,7 +322,7 @@ AC_COMPILE_IFELSE(
     AC_DEFINE([JS_PROPERTY_OP_HAS_ID_AS_JSID], [1],
         [The type of "id" in the prototype for JSPropertyOp is a jsid])
 )
-CFLAGS="$OLD_CFLAGS"
+CFLAGS="$OLDCFLAGS"
 AC_LANG_POP(C)
 
 AC_ARG_WITH([win32-icu-binaries], [AC_HELP_STRING([--with-win32-icu-binaries=PATH],
